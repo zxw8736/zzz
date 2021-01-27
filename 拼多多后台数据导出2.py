@@ -53,12 +53,12 @@ class xie_xls():
         if hang==0:
             print('写表头。。。。。')
             for i01 in range(0,len(tou)):
-                ws.write(hang,i01,[hang+1]+tou[i01])  # 改变（0,0）的值
+                ws.write(hang,i01,tou[i01])  # 改变（0,0）的值
 
             hang=1
 
         for i01 in range(0,len(data)):
-            ws.write(hang,i01,[hang+1]+data[i01])  # 改变（0,0）的值
+            ws.write(hang,i01,data[i01])  # 改变（0,0）的值
 
         wb.save('{}'.format(self.name))  # 保存文件
 
@@ -134,11 +134,11 @@ def qing_post(url):
 
 
 print('程序开启。。。。。。。。。。。。。。。。')
-cookie01='''api_uid=rBQR2V//7ASO2Do20qUBAg==; _nano_fp=XpEaX0EonqExlpX8Xo_UwKn8QGcZy_FD3ARIDHr_; finger-FKGJ_0.1.2=b058860957d04c25b0de5ca0cc0c1d0b; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,50,98,56,57,53,49,53,54,45,53,53,102,99,45,52,98,99,48,45,57,53,97,55,45,51,53,98,51,49,55,101,52,53,97,49,57; evercookie_etag=8577c84e60c0642739c6d0c2778e835d; evercookie_cache=8577c84e60c0642739c6d0c2778e835d; finger-cookie_0.1.2=8577c84e60c0642739c6d0c2778e835d; PASS_ID=1-kYCxZTFriqKhLBmDf2U0wLQNj/06qVkLPL3homeT4AdFuwiwV4DX8SykMjoRPihP12yqQK0WArOV3+c17SblDw_912018337_85453916'''
+cookie01='''api_uid=rBQRal//l8mzFXVhpvELAg==; _nano_fp=XpEaX0dJn5gan0TaXC_wvAQE2EzKtRrXBHSzf4BI; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=540afc2d-6515-4412-8f96-b1a8c909f9a5; _a42=2dae549c-10c7-4b18-a002-ae5d340de849; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=540afc2d-6515-4412-8f96-b1a8c909f9a5; ru2k=2dae549c-10c7-4b18-a002-ae5d340de849; finger-FKGJ_0.1.2=82c31812da444821b6c4a987a81bd415; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,102,98,53,57,57,102,57,102,45,54,49,48,55,45,52,55,50,56,45,98,102,49,51,45,98,50,102,53,55,56,97,48,100,50,48,98; evercookie_etag=af2b721ef2486ba29a0ae00ac3c99733; evercookie_cache=af2b721ef2486ba29a0ae00ac3c99733; finger-cookie_0.1.2=af2b721ef2486ba29a0ae00ac3c99733'''
 
 
 bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
-yue01=xie_xls('爬虫结果.xls',bian_name)
+yue01=xie_xls('买菜销量.xls',bian_name)
 try:
     yue01.dubiao(0)
 except:
@@ -166,7 +166,7 @@ while 1:
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
     nowtime01 = datetime.datetime.now().strftime('%M')  # 现在
 
-    if nowtime01 in ['09','10','03', '33']:
+    if nowtime01 in ['03', '58']:
         print('开始运行。。。。。。。。。。')
     else:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
@@ -177,7 +177,7 @@ while 1:
         try:
             print('*'*120)
             print('时间：',nowtime)
-            biao_tou=['序号','时间']
+            biao_tou=['时间']
             url01='https://mms.pinduoduo.com/patronus-mms/order/daily/statisticList'
             data01=qing_post(url01)
             data02=data01.json()
@@ -204,14 +204,14 @@ while 1:
 
             # print(ge_dirt)
             zhuan02=[nowtime]
-            for i01 in biao_tou[2:]:
+            for i01 in biao_tou[1:]:
                 cha02=ge_dirt.get(i01,'-')
                 zhuan02.append(cha02)
 
             print('表头：',biao_tou)
             print('内容：',zhuan02)
 
-            yue01=xie_xls('爬虫结果.xls',bian_name)
+            yue01=xie_xls('买菜销量.xls',bian_name)
             # yue01.chuangbiao([])
             yue01.xiubiao02(zhuan02,biao_tou)
 
