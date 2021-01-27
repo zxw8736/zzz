@@ -183,7 +183,7 @@ while 1:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
         sleep(1)
         continue
-
+##
     while 1:
         try:
             print('*'*120)
