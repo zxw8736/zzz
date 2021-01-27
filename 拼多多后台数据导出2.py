@@ -4,10 +4,7 @@ import requests
 import sys
 import datetime
 import xlwt#写excel
-import xlrd
-import os
-import time
-#导入模块
+import xlrd                           #导入模块
 from xlutils.copy import copy        #导入copy模块
 
 
@@ -67,13 +64,6 @@ class xie_xls():
 
         if biao01==1:
             print('数据存入表格成功。。。。。。。。。。')
-
-            os.popen(r"D:\Users\Administrator\桌面\买菜销量\买菜销量.xls", "r")
-            print('打开表')
-            time.sleep(10)
-            print('等10秒')
-            os.system('taskkill /f /im wps.exe')
-            print('关闭表')
 
 
     # 读取表
@@ -144,9 +134,11 @@ def qing_post(url):
 
 
 print('程序开启。。。。。。。。。。。。。。。。')
-cookie01='api_uid=rBQR6WACx/u3HDsxdk3nAg==; _nano_fp=XpEaX0mbnp9onpTan9_45j2vSPNqFr_ll6j3ugPB; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=b37320fd-eb21-49f1-a796-6ea1aa81f8bb; _a42=7812b02a-84d5-488c-8b38-e2533217be9f; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=b37320fd-eb21-49f1-a796-6ea1aa81f8bb; ru2k=7812b02a-84d5-488c-8b38-e2533217be9f; x-visit-time=1611285928323; JSESSIONID=DBF68839BB0A5955E6E17C712F6F2C76; mms_b84d1838=120,1202,1203,1204,1205,3423; PASS_ID=1-N4Vl1cnkkNtv+XzlwBFHwZ2VhBY70dzK3N5xqlt4gp/Z4b1JGd/TAF8cECl/01f6njL1CnU1LCbjTWeZUTZV8Q_912018337_85453916'
+cookie01='''api_uid=rBQR2V//7ASO2Do20qUBAg==; _nano_fp=XpEaX0EonqExlpX8Xo_UwKn8QGcZy_FD3ARIDHr_; finger-FKGJ_0.1.2=b058860957d04c25b0de5ca0cc0c1d0b; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,50,98,56,57,53,49,53,54,45,53,53,102,99,45,52,98,99,48,45,57,53,97,55,45,51,53,98,51,49,55,101,52,53,97,49,57; evercookie_etag=8577c84e60c0642739c6d0c2778e835d; evercookie_cache=8577c84e60c0642739c6d0c2778e835d; finger-cookie_0.1.2=8577c84e60c0642739c6d0c2778e835d; PASS_ID=1-kYCxZTFriqKhLBmDf2U0wLQNj/06qVkLPL3homeT4AdFuwiwV4DX8SykMjoRPihP12yqQK0WArOV3+c17SblDw_912018337_85453916'''
+
+
 bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
-yue01=xie_xls('买菜销量.xls',bian_name)
+yue01=xie_xls('爬虫结果.xls',bian_name)
 try:
     yue01.dubiao(0)
 except:
@@ -160,9 +152,6 @@ try:
     data02 = data01.json()
     print('源码：',data02)
     data03 = data02['result']['orderList']
-
-
-
 except:
     s = sys.exc_info()
     print("错误第{}行,详情：【'{}' 】".format(s[2].tb_lineno, s[1]).replace('\n', ''))
@@ -172,19 +161,18 @@ except:
 
 
 sj01=60*1
-
 while 1:
     nowtime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M')  # 现在
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
     nowtime01 = datetime.datetime.now().strftime('%M')  # 现在
 
-    if nowtime01 in ['02', '32']:
+    if nowtime01 in ['03', '33']:
         print('开始运行。。。。。。。。。。')
     else:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
         sleep(1)
         continue
-##
+
     while 1:
         try:
             print('*'*120)
@@ -219,22 +207,15 @@ while 1:
             for i01 in biao_tou[2:]:
                 cha02=ge_dirt.get(i01,'-')
                 zhuan02.append(cha02)
-#
+
             print('表头：',biao_tou)
             print('内容：',zhuan02)
 
-            yue01=xie_xls('买菜销量.xls',bian_name)
+            yue01=xie_xls('爬虫结果.xls',bian_name)
             # yue01.chuangbiao([])
             yue01.xiubiao02(zhuan02,biao_tou)
 
             print('等待下次更新。。。。。。。。。。。。。。。')
-
-         #   f = os.popen(r"D:\Users\Administrator\桌面\买菜销量\买菜销量.xls", "r")
-           # print('打开表')
-          #  time.sleep(10)
-          #  print('等10秒')
-          #  os.system('taskkill /f /im wps.exe')
-          #  print('关闭表')
             sleep(61)
             break
 
