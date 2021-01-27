@@ -134,8 +134,8 @@ def qing_post(url):
 
 
 print('程序开启。。。。。。。。。。。。。。。。')
-cookie01='''api_uid=rBQRal//l8mzFXVhpvELAg==; _nano_fp=XpEaX0dJn5gan0TaXC_wvAQE2EzKtRrXBHSzf4BI; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=540afc2d-6515-4412-8f96-b1a8c909f9a5; _a42=2dae549c-10c7-4b18-a002-ae5d340de849; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=540afc2d-6515-4412-8f96-b1a8c909f9a5; ru2k=2dae549c-10c7-4b18-a002-ae5d340de849; finger-FKGJ_0.1.2=82c31812da444821b6c4a987a81bd415; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,102,98,53,57,57,102,57,102,45,54,49,48,55,45,52,55,50,56,45,98,102,49,51,45,98,50,102,53,55,56,97,48,100,50,48,98; evercookie_etag=af2b721ef2486ba29a0ae00ac3c99733; evercookie_cache=af2b721ef2486ba29a0ae00ac3c99733; finger-cookie_0.1.2=af2b721ef2486ba29a0ae00ac3c99733'''
 
+cookie01='''api_uid=rBQRal//l8mzFXVhpvELAg==; _nano_fp=XpEaX0dJn5gan0TaXC_wvAQE2EzKtRrXBHSzf4BI; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=540afc2d-6515-4412-8f96-b1a8c909f9a5; _a42=2dae549c-10c7-4b18-a002-ae5d340de849; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=540afc2d-6515-4412-8f96-b1a8c909f9a5; ru2k=2dae549c-10c7-4b18-a002-ae5d340de849; finger-FKGJ_0.1.2=82c31812da444821b6c4a987a81bd415; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,102,98,53,57,57,102,57,102,45,54,49,48,55,45,52,55,50,56,45,98,102,49,51,45,98,50,102,53,55,56,97,48,100,50,48,98; evercookie_etag=af2b721ef2486ba29a0ae00ac3c99733; evercookie_cache=af2b721ef2486ba29a0ae00ac3c99733; finger-cookie_0.1.2=af2b721ef2486ba29a0ae00ac3c99733'''
 
 bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
 yue01=xie_xls('买菜销量.xls',bian_name)
@@ -146,27 +146,13 @@ except:
     yue01.chuangbiao([])
 
 
-try:
-    url01 = 'https://mms.pinduoduo.com/patronus-mms/order/daily/statisticList'
-    data01 = qing_post(url01)
-    data02 = data01.json()
-    print('源码：',data02)
-    data03 = data02['result']['orderList']
-except:
-    s = sys.exc_info()
-    print("错误第{}行,详情：【'{}' 】".format(s[2].tb_lineno, s[1]).replace('\n', ''))
-
-    while 1:
-        input('程序出错，请检查后重新运行程序。。。。。。。。。。。。。。。。。。。')
-
-
 sj01=60*1
 while 1:
     nowtime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M')  # 现在
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
     nowtime01 = datetime.datetime.now().strftime('%M')  # 现在
 
-    if nowtime01 in ['03', '58']:
+    if nowtime01 in ['01', '33', '48']:
         print('开始运行。。。。。。。。。。')
     else:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
