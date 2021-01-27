@@ -4,7 +4,10 @@ import requests
 import sys
 import datetime
 import xlwt#写excel
-import xlrd                           #导入模块
+import xlrd
+import os
+import time
+#导入模块
 from xlutils.copy import copy        #导入copy模块
 
 
@@ -53,17 +56,24 @@ class xie_xls():
         if hang==0:
             print('写表头。。。。。')
             for i01 in range(0,len(tou)):
-                ws.write(hang,i01,tou[i01])  # 改变（0,0）的值
+                ws.write(hang,i01,[hang+1]+tou[i01])  # 改变（0,0）的值
 
             hang=1
 
         for i01 in range(0,len(data)):
-            ws.write(hang,i01,data[i01])  # 改变（0,0）的值
+            ws.write(hang,i01,[hang+1]+data[i01])  # 改变（0,0）的值
 
         wb.save('{}'.format(self.name))  # 保存文件
 
         if biao01==1:
             print('数据存入表格成功。。。。。。。。。。')
+
+            os.popen(r"D:\Users\Administrator\桌面\买菜销量\买菜销量.xls", "r")
+            print('打开表')
+            time.sleep(10)
+            print('等10秒')
+            os.system('taskkill /f /im wps.exe')
+            print('关闭表')
 
 
     # 读取表
@@ -134,9 +144,7 @@ def qing_post(url):
 
 
 print('程序开启。。。。。。。。。。。。。。。。')
-
-cookie01='''api_uid=rBQRal//l8mzFXVhpvELAg==; _nano_fp=XpEaX0dJn5gan0TaXC_wvAQE2EzKtRrXBHSzf4BI; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=540afc2d-6515-4412-8f96-b1a8c909f9a5; _a42=2dae549c-10c7-4b18-a002-ae5d340de849; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=540afc2d-6515-4412-8f96-b1a8c909f9a5; ru2k=2dae549c-10c7-4b18-a002-ae5d340de849; finger-FKGJ_0.1.2=82c31812da444821b6c4a987a81bd415; 226,3,24,102,105,110,103,101,114,45,103,117,105,100,49=226,3,72,102,98,53,57,57,102,57,102,45,54,49,48,55,45,52,55,50,56,45,98,102,49,51,45,98,50,102,53,55,56,97,48,100,50,48,98; evercookie_etag=af2b721ef2486ba29a0ae00ac3c99733; evercookie_cache=af2b721ef2486ba29a0ae00ac3c99733; finger-cookie_0.1.2=af2b721ef2486ba29a0ae00ac3c99733'''
-
+cookie01='api_uid=rBQR6WACx/u3HDsxdk3nAg==; _nano_fp=XpEaX0mbnp9onpTan9_45j2vSPNqFr_ll6j3ugPB; _bee=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; _f77=b37320fd-eb21-49f1-a796-6ea1aa81f8bb; _a42=7812b02a-84d5-488c-8b38-e2533217be9f; rckk=ewuZSWfRaBbK6FMJP7dm2FWtAOHCde9r; ru1k=b37320fd-eb21-49f1-a796-6ea1aa81f8bb; ru2k=7812b02a-84d5-488c-8b38-e2533217be9f; x-visit-time=1611285928323; JSESSIONID=DBF68839BB0A5955E6E17C712F6F2C76; mms_b84d1838=120,1202,1203,1204,1205,3423; PASS_ID=1-N4Vl1cnkkNtv+XzlwBFHwZ2VhBY70dzK3N5xqlt4gp/Z4b1JGd/TAF8cECl/01f6njL1CnU1LCbjTWeZUTZV8Q_912018337_85453916'
 bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
 yue01=xie_xls('买菜销量.xls',bian_name)
 try:
@@ -146,24 +154,42 @@ except:
     yue01.chuangbiao([])
 
 
+try:
+    url01 = 'https://mms.pinduoduo.com/patronus-mms/order/daily/statisticList'
+    data01 = qing_post(url01)
+    data02 = data01.json()
+    print('源码：',data02)
+    data03 = data02['result']['orderList']
+
+
+
+except:
+    s = sys.exc_info()
+    print("错误第{}行,详情：【'{}' 】".format(s[2].tb_lineno, s[1]).replace('\n', ''))
+
+    while 1:
+        input('程序出错，请检查后重新运行程序。。。。。。。。。。。。。。。。。。。')
+
+
 sj01=60*1
+
 while 1:
     nowtime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M')  # 现在
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
     nowtime01 = datetime.datetime.now().strftime('%M')  # 现在
 
-    if nowtime01 in ['01', '33', '48']:
+    if nowtime01 in ['02', '32']:
         print('开始运行。。。。。。。。。。')
     else:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
         sleep(1)
         continue
-
+##
     while 1:
         try:
             print('*'*120)
             print('时间：',nowtime)
-            biao_tou=['时间']
+            biao_tou=['序号','时间']
             url01='https://mms.pinduoduo.com/patronus-mms/order/daily/statisticList'
             data01=qing_post(url01)
             data02=data01.json()
@@ -190,10 +216,10 @@ while 1:
 
             # print(ge_dirt)
             zhuan02=[nowtime]
-            for i01 in biao_tou[1:]:
+            for i01 in biao_tou[2:]:
                 cha02=ge_dirt.get(i01,'-')
                 zhuan02.append(cha02)
-
+#
             print('表头：',biao_tou)
             print('内容：',zhuan02)
 
@@ -202,6 +228,13 @@ while 1:
             yue01.xiubiao02(zhuan02,biao_tou)
 
             print('等待下次更新。。。。。。。。。。。。。。。')
+
+         #   f = os.popen(r"D:\Users\Administrator\桌面\买菜销量\买菜销量.xls", "r")
+           # print('打开表')
+          #  time.sleep(10)
+          #  print('等10秒')
+          #  os.system('taskkill /f /im wps.exe')
+          #  print('关闭表')
             sleep(61)
             break
 
