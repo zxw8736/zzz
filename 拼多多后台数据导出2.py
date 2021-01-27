@@ -166,7 +166,7 @@ while 1:
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
     nowtime01 = datetime.datetime.now().strftime('%M')  # 现在
 
-    if nowtime01 in ['03', '33']:
+    if nowtime01 in ['09','10','03', '33']:
         print('开始运行。。。。。。。。。。')
     else:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
