@@ -56,15 +56,14 @@ class xie_xls():
         if hang==0:
             print('写表头。。。。。')
             for i01 in range(0,len(tou)):
-                ws.write(hang,i01,[hang+1]+tou[i01])  # 改变（0,0）的值
-
+                ws.write(hang,i01,tou[i01])  # 改变（0,0）的值
             hang=1
 
+        data=[hang]+data
         for i01 in range(0,len(data)):
-            ws.write(hang,i01,[hang+1]+data[i01])  # 改变（0,0）的值
+            ws.write(hang,i01,data[i01])  # 改变（0,0）的值
 
         wb.save('{}'.format(self.name))  # 保存文件
-
         if biao01==1:
             print('数据存入表格成功。。。。。。。。。。')
 
@@ -162,7 +161,6 @@ try:
     data03 = data02['result']['orderList']
 
 
-
 except:
     s = sys.exc_info()
     print("错误第{}行,详情：【'{}' 】".format(s[2].tb_lineno, s[1]).replace('\n', ''))
@@ -172,7 +170,6 @@ except:
 
 
 sj01=60*1
-
 while 1:
     nowtime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M')  # 现在
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
@@ -184,7 +181,7 @@ while 1:
         print('\r检测时间【{}】【{}】'.format(nowtime,nowtime01),end='')
         sleep(1)
         continue
-##
+
     while 1:
         try:
             print('*'*120)
@@ -219,7 +216,7 @@ while 1:
             for i01 in biao_tou[2:]:
                 cha02=ge_dirt.get(i01,'-')
                 zhuan02.append(cha02)
-#
+
             print('表头：',biao_tou)
             print('内容：',zhuan02)
 
