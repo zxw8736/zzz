@@ -172,6 +172,7 @@ except:
 
 
 sj01=60*1
+
 while 1:
     nowtime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M')  # 现在
     bian_name = datetime.datetime.now().strftime('%m-%d')  # 现在
