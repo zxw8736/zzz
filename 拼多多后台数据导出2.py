@@ -223,7 +223,7 @@ while 1:
             yue01=xie_xls('买菜销量.xls',bian_name)
             # yue01.chuangbiao([])
             yue01.xiubiao02(zhuan02,biao_tou)
-
+##
             print('等待下次更新。。。。。。。。。。。。。。。')
 
          #   f = os.popen(r"D:\Users\Administrator\桌面\买菜销量\买菜销量.xls", "r")
